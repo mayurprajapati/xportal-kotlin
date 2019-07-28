@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/filePropertiesScrollView"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/filePropertiesRoot"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:fastScrollEnabled="true"
+        android:paddingBottom="10dp"
+        android:scrollbarSize="50dp">
+
+
+        <TextView
+            android:id="@+id/textViewPropertiesName"
+            android:layout_width="79dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="8dp"
+            android:text="Name(s)"
+            android:textAllCaps="false"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textViewPropertiesSize"
+            android:layout_width="78dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:text="Size"
+            android:textAllCaps="false"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/filePropertiesFileName" />
+
+        <TextView
+            android:id="@+id/filePropertiesFileSize"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/textViewPropertiesSize"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_toEndOf="@+id/textViewPropertiesSize"
+            android:text="FileSize"
+            android:textAllCaps="false"
+            android:textSize="15sp"
+            app:layout_constraintBaseline_toBaselineOf="@+id/textViewPropertiesSize"
+            app:layout_constraintEnd_toStartOf="@+id/progressBarFileSize"
+            app:layout_constraintStart_toEndOf="@+id/textViewPropertiesSize" />
+
+        <TextView
+            android:id="@+id/textViewPropertiesLastModified"
+            android:layout_width="77dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:text="Last Modified"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/filePropertiesFileSize" />
+
+        <TextView
+            android:id="@+id/filePropertiesDateModified"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:text="Date"
+            android:textSize="15sp"
+            app:layout_constraintBaseline_toBaselineOf="@+id/textViewPropertiesLastModified"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/textViewPropertiesLastModified" />
+
+
+        <ProgressBar
+            android:id="@+id/progressBarFileSize"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@+id/filePropertiesFileSize"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/filePropertiesFileSize" />
+
+        <TextView
+            android:id="@+id/textViewPropertiesPath"
+            android:layout_width="77dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:text="Path"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewPropertiesLastModified" />
+
+        <TextView
+            android:id="@+id/filePropertiesFilePath"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:text="FilePath"
+            android:textSize="15sp"
+            app:layout_constraintBaseline_toBaselineOf="@+id/textViewPropertiesPath"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/textViewPropertiesPath" />
+
+        <TextView
+            android:id="@+id/filePropertiesFileName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:layout_toEndOf="@id/textViewPropertiesName"
+            android:text="FileName"
+            android:textAllCaps="false"
+            android:textSize="15sp"
+            app:layout_constraintBaseline_toBaselineOf="@+id/textViewPropertiesName"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/textViewPropertiesName" />
+    </android.support.constraint.ConstraintLayout>
+</ScrollView>

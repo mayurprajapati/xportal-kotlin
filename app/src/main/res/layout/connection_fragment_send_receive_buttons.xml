@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_gravity="bottom"
+    tools:context=".MainActivity"
+    android:layout_height="match_parent">
+
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="80dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <android.support.v7.widget.CardView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:id="@+id/cardViewButtonSend"
+            android:elevation="16dp"
+            app:cardCornerRadius="16dp">
+
+            <ImageButton
+                android:id="@+id/btn_upload"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_margin="16dp"
+                android:background="@drawable/ic_send"
+                android:onClick="onButtonUploadClick"
+                android:translationZ="20dp" />
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:id="@+id/cardViewButtonReceive"
+            android:elevation="16dp"
+            app:cardCornerRadius="16dp">
+
+            <ImageButton
+                android:id="@+id/btn_download"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_margin="16dp"
+                android:background="@drawable/ic_receive"
+                android:onClick="onButtonDownloadClick"
+                android:translationZ="20dp" />
+        </android.support.v7.widget.CardView>
+    </LinearLayout>
+
+    <!--<LinearLayout-->
+        <!--android:layout_width="0dp"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--app:layout_constraintEnd_toEndOf="@+id/linearLayout"-->
+        <!--app:layout_constraintStart_toStartOf="@+id/linearLayout"-->
+        <!--app:layout_constraintTop_toBottomOf="@+id/linearLayout">-->
+
+        <!--<TextView-->
+            <!--android:layout_width="95dp"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:fontFamily="@font/k2d_regular"-->
+            <!--android:text="SEND"-->
+            <!--android:textAlignment="center"-->
+            <!--android:textColor="#ff4500"-->
+            <!--android:textSize="20sp"-->
+            <!--android:textStyle="bold" />-->
+
+        <!--<TextView-->
+            <!--android:layout_width="120dp"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginStart="6dp"-->
+            <!--android:fontFamily="@font/k2d_regular"-->
+            <!--android:text="RECEIVE"-->
+            <!--android:textAlignment="center"-->
+            <!--android:textColor="#4682b4"-->
+            <!--android:textSize="20sp"-->
+            <!--android:textStyle="bold" />-->
+    <!--</LinearLayout>-->
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <android.support.v7.widget.GridLayout
+            android:layout_width="match_parent"
+            android:layout_height="285dp"
+            app:columnCount="2"
+            app:rowCount="3"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/cardViewAppsView"
+                android:clickable="true"
+                android:elevation="16dp"
+                android:onClick="onClickOfCardButtons"
+                app:layout_column="0"
+                app:layout_columnWeight="1"
+                app:layout_row="0">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="10dp"
+                    android:background="@drawable/background_nav_header"
+                    android:fontFamily="@font/k2d_regular"
+                    android:padding="20dp"
+                    android:text="Apps"
+                    android:textAlignment="center"
+                    android:textColor="@android:color/white"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/cardViewMusicView"
+                android:clickable="true"
+                android:elevation="16dp"
+                android:onClick="onClickOfCardButtons"
+                app:layout_column="1"
+                app:layout_columnWeight="1"
+                app:layout_row="0">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="10dp"
+                    android:background="@drawable/background_nav_header"
+                    android:fontFamily="@font/k2d_regular"
+                    android:padding="20dp"
+                    android:text="Music"
+                    android:textAlignment="center"
+                    android:textColor="@android:color/white"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/cardViewVideoView"
+                android:clickable="true"
+                android:elevation="16dp"
+                android:onClick="onClickOfCardButtons"
+                app:layout_column="0"
+                app:layout_columnWeight="1"
+                app:layout_row="1">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="10dp"
+                    android:background="@drawable/background_nav_header"
+                    android:fontFamily="@font/k2d_regular"
+                    android:padding="20dp"
+                    android:text="Videos"
+                    android:textAlignment="center"
+                    android:textColor="@android:color/white"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/cardViewPhotosView"
+                android:clickable="true"
+                android:elevation="16dp"
+                android:onClick="onClickOfCardButtons"
+                app:layout_column="1"
+                app:layout_columnWeight="1"
+                app:layout_row="1">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="10dp"
+                    android:background="@drawable/background_nav_header"
+                    android:fontFamily="@font/k2d_regular"
+                    android:padding="20dp"
+                    android:text="Photos"
+                    android:textAlignment="center"
+                    android:textColor="@android:color/white"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/cardViewFilesView"
+                android:clickable="true"
+                android:elevation="16dp"
+                android:onClick="onClickOfCardButtons"
+                app:layout_column="0"
+                app:layout_columnWeight="1"
+                app:layout_row="2">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="10dp"
+                    android:background="@drawable/background_nav_header"
+                    android:fontFamily="@font/k2d_regular"
+                    android:padding="20dp"
+                    android:text="Files"
+                    android:textAlignment="center"
+                    android:textColor="@android:color/white"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/cardViewHistoryView"
+                android:clickable="true"
+                android:elevation="16dp"
+                android:onClick="onClickOfCardButtons"
+                app:layout_column="1"
+                app:layout_columnWeight="1"
+                app:layout_row="2">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="10dp"
+                    android:background="@drawable/background_nav_header"
+                    android:fontFamily="@font/k2d_regular"
+                    android:padding="20dp"
+                    android:text="History"
+                    android:textAlignment="center"
+                    android:textColor="@android:color/white"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+            </android.support.v7.widget.CardView>
+        </android.support.v7.widget.GridLayout>
+
+    </android.support.constraint.ConstraintLayout>
+
+
+</android.support.constraint.ConstraintLayout>
