@@ -1,30 +1,30 @@
-package com.example.mayur.xportal.fragments.files
+package com.example.mayur.byteshare.fragments.files
 
 import android.app.AlertDialog
 import android.content.Context
 import android.content.DialogInterface
 import android.os.Environment
-import android.support.design.widget.Snackbar
-import android.support.v4.widget.SwipeRefreshLayout
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
+import com.google.android.material.snackbar.Snackbar
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.webkit.MimeTypeMap
 import android.widget.*
-import com.example.mayur.xportal.MainActivity
-import com.example.mayur.xportal.R
-import com.example.mayur.xportal.fragments.files.icon.Icons
-import com.example.mayur.xportal.util.FileUtils
+import com.example.mayur.byteshare.MainActivity
+import com.example.mayur.byteshare.R
+import com.example.mayur.byteshare.fragments.files.icon.Icons
+import com.example.mayur.byteshare.utils.FileUtils
 import java.io.File
 import java.io.FilenameFilter
 import java.text.DateFormat
 import java.util.*
 
 class FilesAdapter constructor(
-    private val mainActivity: MainActivity,
-    private val filesFragment: FilesFragment
+        private val mainActivity: MainActivity,
+        private val filesFragment: FilesFragment
 ) : RecyclerView.Adapter<FilesViewHolder>(), SwipeRefreshLayout.OnRefreshListener {
 
     private val root: File

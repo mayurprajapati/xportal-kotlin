@@ -1,9 +1,9 @@
-package com.example.mayur.xportal.hider
+package com.example.mayur.byteshare.hider
 
 import android.content.Context
 import android.content.DialogInterface
 import android.os.AsyncTask
-import android.support.v7.app.AlertDialog
+import androidx.appcompat.app.AlertDialog
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,9 +11,9 @@ import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
 
-import com.example.mayur.xportal.Constants
-import com.example.mayur.xportal.MainActivity
-import com.example.mayur.xportal.R
+import com.example.mayur.byteshare.Constants
+import com.example.mayur.byteshare.MainActivity
+import com.example.mayur.byteshare.R
 
 import java.io.File
 import java.io.FileInputStream
@@ -147,7 +147,7 @@ private constructor(private val mainActivity: MainActivity) {
         override fun doInBackground(vararg voids: Void): Void? {
             var i = 0
             for (f in files) {
-                if (!Hider.isSpaceAvailable(f)) {
+                if (!isSpaceAvailable(f)) {
                     l.onSpaceNotAvailable()
                     return null
                 }
@@ -216,9 +216,9 @@ private constructor(private val mainActivity: MainActivity) {
 
     companion object {
 
-        var pathToHideFiles = File(Constants.XPORTAL_ROOT, ".xpo")
+        var pathToHideFiles = File(Constants.BYTESHARE_ROOT, ".xpo")
         var filesRoot = File(pathToHideFiles, ".files")
-        var rootUnhideFiles = File(Constants.XPORTAL_ROOT, "Unhide")
+        var rootUnhideFiles = File(Constants.BYTESHARE_ROOT, "Unhide")
         //    public static final File VIDEO = new File(filesRoot, ".video");
         //    public static final File MUSIC = new File(filesRoot, ".music");
         //    public static final File IMAGE = new File(filesRoot, ".image");

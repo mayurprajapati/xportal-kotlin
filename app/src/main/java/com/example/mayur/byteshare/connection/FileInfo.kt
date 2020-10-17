@@ -1,6 +1,6 @@
-package com.example.mayur.xportal.connection
+package com.example.mayur.byteshare.connection
 
-import com.example.mayur.xportal.Constants
+import com.example.mayur.byteshare.Constants
 
 import org.json.JSONException
 import org.json.JSONObject

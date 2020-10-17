@@ -1,4 +1,4 @@
-package com.example.mayur.xportal.fragments.history
+package com.example.mayur.byteshare.fragments.history
 
 data class HistoryInfo(var progress: Int, internal var fileName: String, internal var totalSize: Long) {
     var date: Long = 0

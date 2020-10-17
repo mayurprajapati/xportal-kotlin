@@ -1,6 +1,7 @@
-package com.example.mayur.xportal.connection.hotspot
+package com.example.mayur.byteshare.connection.hotspot
 
 import android.graphics.Bitmap
+import com.example.mayur.byteshare.connection.hotspot.HotspotManager
 
 interface HotspotManagerCallbackListener {
 

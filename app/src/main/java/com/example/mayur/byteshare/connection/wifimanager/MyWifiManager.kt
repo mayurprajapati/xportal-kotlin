@@ -10,9 +10,6 @@ import android.net.wifi.WifiConfiguration
 import android.net.wifi.WifiManager
 import android.os.Build
 import android.os.Bundle
-import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentTransaction
-import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import android.widget.Toast
 import com.example.mayur.byteshare.Constants
 import com.example.mayur.byteshare.MainActivity
@@ -24,6 +21,8 @@ import com.example.mayur.byteshare.connection.hotspot.CouldNotStartHotspotFragme
 import com.example.mayur.byteshare.connection.intent.Intents
 import com.example.mayur.byteshare.connection.location.LocationPermissionFragment
 import com.example.mayur.byteshare.connection.logger.Logger
+import com.example.mayur.byteshare.connection.wifimanager.StartingWifiFragment
+import com.example.mayur.byteshare.connection.wifimanager.TransferWifi
 import com.google.zxing.integration.android.IntentIntegrator
 import java.util.*
 

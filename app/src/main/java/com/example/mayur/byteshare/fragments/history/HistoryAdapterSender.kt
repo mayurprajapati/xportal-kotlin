@@ -1,23 +1,23 @@
-package com.example.mayur.xportal.fragments.history
+package com.example.mayur.byteshare.fragments.history
 
 import android.annotation.SuppressLint
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
-import com.example.mayur.xportal.MainActivity
-import com.example.mayur.xportal.R
-import com.example.mayur.xportal.fragments.files.icon.Icons
-import com.example.mayur.xportal.fragments.history.database.SenderHistory
-import com.example.mayur.xportal.util.FileUtils
+import com.example.mayur.byteshare.MainActivity
+import com.example.mayur.byteshare.R
+import com.example.mayur.byteshare.fragments.files.icon.Icons
+import com.example.mayur.byteshare.fragments.history.database.SenderHistory
+import com.example.mayur.byteshare.utils.FileUtils
 import java.util.*
 
 class HistoryAdapterSender private constructor(
-    private val mainActivity: MainActivity,
-    historySendFragment: HistorySendFragment
+        private val mainActivity: MainActivity,
+        historySendFragment: HistorySendFragment
 ) : RecyclerView.Adapter<HistoryAdapterSender.SenderHistoryViewHolder>() {
     var recyclerView: RecyclerView
     private val senderHistory: SenderHistory
@@ -137,8 +137,8 @@ class HistoryAdapterSender private constructor(
         private var historyAdapterSender: HistoryAdapterSender? = null
 
         fun newInstance(
-            mainActivity: MainActivity,
-            historySendFragment: HistorySendFragment?
+                mainActivity: MainActivity,
+                historySendFragment: HistorySendFragment?
         ): HistoryAdapterSender {
             if (historyAdapterSender == null) {
                 historyAdapterSender = HistoryAdapterSender(mainActivity, historySendFragment!!)

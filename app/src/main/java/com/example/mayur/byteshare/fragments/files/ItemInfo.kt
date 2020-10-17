@@ -1,4 +1,4 @@
-package com.example.mayur.xportal.fragments.files
+package com.example.mayur.byteshare.fragments.files
 
 class ItemInfo internal constructor(
     var isSelected: Boolean,

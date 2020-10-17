@@ -1,50 +1,54 @@
-package com.example.mayur.xportal
+package com.example.mayur.byteshare
 
 import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.graphics.Color
 import android.os.*
-import android.support.annotation.RequiresPermission
-import android.support.design.widget.NavigationView
-import android.support.design.widget.Snackbar
-import android.support.design.widget.TabLayout
-import android.support.v4.app.ActivityCompat
-import android.support.v4.app.Fragment
-import android.support.v4.app.FragmentManager
-import android.support.v4.app.FragmentPagerAdapter
-import android.support.v4.view.GravityCompat
-import android.support.v4.view.ViewPager
-import android.support.v4.widget.DrawerLayout
-import android.support.v7.app.ActionBar
-import android.support.v7.app.AlertDialog
-import android.support.v7.widget.CardView
-import android.support.v7.widget.Toolbar
+import androidx.annotation.RequiresPermission
+import com.google.android.material.navigation.NavigationView
+import com.google.android.material.tabs.TabLayout
+import androidx.core.app.ActivityCompat
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentPagerAdapter
+import androidx.core.view.GravityCompat
+import androidx.viewpager.widget.ViewPager
+import androidx.drawerlayout.widget.DrawerLayout
+import androidx.appcompat.app.ActionBar
+import androidx.appcompat.app.AlertDialog
+import androidx.cardview.widget.CardView
+import androidx.appcompat.widget.Toolbar
 import android.view.*
-import com.example.mayur.xportal.connection.connection.RootFragment
-import com.example.mayur.xportal.connection.hotspot.HotspotManager
-import com.example.mayur.xportal.connection.hotspot.TransferHotspot
-import com.example.mayur.xportal.connection.logger.Logger
-import com.example.mayur.xportal.connection.wifi.MyWifiManager
-import com.example.mayur.xportal.connection.wifi.TransferWifi
-import com.example.mayur.xportal.fragments.apps.AppsFragment
-import com.example.mayur.xportal.fragments.files.FilesFragment
-import com.example.mayur.xportal.fragments.history.HistoryFragment
-import com.example.mayur.xportal.fragments.music.MusicFragment
-import com.example.mayur.xportal.fragments.photos.PhotosFragment
-import com.example.mayur.xportal.fragments.video.VideosFragment
-import com.example.mayur.xportal.hider.Hider
-import com.example.mayur.xportal.hider.HiderActivity
-import com.example.mayur.xportal.settings.SettingsActivity
-import com.google.zxing.integration.android.IntentIntegrator
+import androidx.appcompat.app.AppCompatActivity
+import com.example.mayur.byteshare.connection.wifi.MyWifiManager
+import com.example.mayur.byteshare.connection.wifimanager.TransferWifi
+import com.example.mayur.byteshare.R
+import com.example.mayur.byteshare.connection.connection.RootFragment
+import com.example.mayur.byteshare.connection.hotspot.HotspotManager
+import com.example.mayur.byteshare.connection.hotspot.TransferHotspot
+import com.example.mayur.byteshare.connection.logger.Logger
+import com.example.mayur.byteshare.fragments.apps.AppsFragment
+import com.example.mayur.byteshare.fragments.files.FilesFragment
+import com.example.mayur.byteshare.fragments.history.HistoryFragment
+import com.example.mayur.byteshare.fragments.music.MusicFragment
+import com.example.mayur.byteshare.fragments.photos.PhotosFragment
+import com.example.mayur.byteshare.fragments.video.VideosFragment
+import com.example.mayur.byteshare.hider.Hider
+import com.example.mayur.byteshare.hider.HiderActivity
+import com.example.mayur.byteshare.settings.SettingsActivity
 import io.multimoon.colorful.CAppCompatActivity
 import io.multimoon.colorful.Colorful
 import io.multimoon.colorful.ThemeColor
-import java.util.*
+import kotlinx.android.synthetic.main.nav_layout_navigation_drawer.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 
-class MainActivity : CAppCompatActivity() {
+val ioCoroutine = CoroutineScope(Dispatchers.IO)
+val uiCoroutine = CoroutineScope(Dispatchers.Main)
+
+class MainActivity : AppCompatActivity() {
     lateinit var cardViewCount: CardView
     lateinit var mViewPager: ViewPager
     lateinit var musicFragment: MusicFragment
@@ -65,6 +69,8 @@ class MainActivity : CAppCompatActivity() {
     private lateinit var navigationView: NavigationView
     private lateinit var videosFragment: VideosFragment
 
+    val activityResultListeners = mutableMapOf<Int, (Int, Int, Intent?) -> Unit>()
+    val permissionResultListeners = mutableMapOf<Int, (Boolean) -> Unit>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -73,6 +79,8 @@ class MainActivity : CAppCompatActivity() {
             WindowManager.LayoutParams.FLAG_FULLSCREEN,
             WindowManager.LayoutParams.FLAG_FULLSCREEN
         )
+
+//        appsFragment = AppsFragment()
 
         changeTheme()
         super.onCreate(savedInstanceState)
@@ -89,8 +97,23 @@ class MainActivity : CAppCompatActivity() {
         }
         requestPermissions()
         Logger.log("onCreate stopped " + System.currentTimeMillis(), this)
+        initiate()
     }
 
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        permissionResultListeners[requestCode]?.let {
+            if (grantResults.find {
+                        it != PackageManager.PERMISSION_GRANTED
+                    } != null) it(false)
+            else
+                it(true)
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        activityResultListeners[requestCode]?.invoke(requestCode, resultCode, data)
+    }
 
     fun onClickOfCardButtons(v: View) {
         when (v.id) {
@@ -103,25 +126,15 @@ class MainActivity : CAppCompatActivity() {
         }
     }
 
-
     private fun initiate() {
         Logger.log("INITIATING " + System.currentTimeMillis(), this)
         hider = Hider.getHider(this@MainActivity)
 
         powerManager = applicationContext.getSystemService(Context.POWER_SERVICE) as PowerManager
         wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, packageName)
-        //        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-        //            if (powerManager.isIgnoringBatteryOptimizations(getPackageName())){
-        //
-        //            }else {
-        //                Intent intent = new Intent(Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS);
-        //                startActivity(intent);
-        //            }
-        //        }
 
-        //        startActivity(new Intent(this, HiderActivity.class));
-
-        drawerLayout = findViewById(R.id.drawer_layout)
+        drawerLayout = drawer_layout
+        mainPagerAdapter = MainPagerAdapter(supportFragmentManager)
 
         navigationView = findViewById(R.id.nav_view)
         navigationView.setNavigationItemSelectedListener { menuItem ->
@@ -160,14 +173,13 @@ class MainActivity : CAppCompatActivity() {
             true
         }
 
-        Thread(Runnable {
+        Thread {
             myWifiManager = MyWifiManager.getMyWifiManager(this@MainActivity)
-            hotspotManager = HotspotManager.getHotspotManager()
-        }).start()
+            hotspotManager = HotspotManager.getHotspotManager(this@MainActivity)
+        }.start()
 
         cardViewCount = findViewById(R.id.cardViewCount)
         cardViewCount.setOnClickListener { }
-        mainPagerAdapter = MainPagerAdapter(supportFragmentManager)
         // Set up the ViewPager with the sections adapter.
         mViewPager = findViewById(R.id.fragments_container)
         mViewPager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
@@ -364,65 +376,65 @@ class MainActivity : CAppCompatActivity() {
 
     }
 
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<String>,
-        grantResults: IntArray
-    ) {
-        when (requestCode) {
-            PERMISSIONS_REQUEST_CODE -> {
-                var allGranted = true
-                for (permission in permissions) {
-                    if (ActivityCompat.checkSelfPermission(
-                            this,
-                            permission
-                        ) != PackageManager.PERMISSION_GRANTED
-                    ) {
-                        allGranted = false
-                        val snackbar = Snackbar.make(
-                            Objects.requireNonNull(window.decorView),
-                            "Application won't work without $permission",
-                            Snackbar.LENGTH_LONG
-                        )
-                        snackbar.setActionTextColor(Color.rgb(255, 165, 0))
-                        snackbar.setAction("GRANT") { requestPermissions() }
-                        snackbar.show()
-                        break
-                    }
-                }
+//    override fun onRequestPermissionsResult(
+//        requestCode: Int,
+//        permissions: Array<String>,
+//        grantResults: IntArray
+//    ) {
+//        when (requestCode) {
+//            PERMISSIONS_REQUEST_CODE -> {
+//                var allGranted = true
+//                for (permission in permissions) {
+//                    if (ActivityCompat.checkSelfPermission(
+//                            this,
+//                            permission
+//                        ) != PackageManager.PERMISSION_GRANTED
+//                    ) {
+//                        allGranted = false
+//                        val snackbar = Snackbar.make(
+//                            Objects.requireNonNull(window.decorView),
+//                            "Application won't work without $permission",
+//                            Snackbar.LENGTH_LONG
+//                        )
+//                        snackbar.setActionTextColor(Color.rgb(255, 165, 0))
+//                        snackbar.setAction("GRANT") { requestPermissions() }
+//                        snackbar.show()
+//                        break
+//                    }
+//                }
+//
+//                if (allGranted)
+//                    initiate()
+//            }
+//
+//            1452 -> for (permission in permissions) {
+//                if (ActivityCompat.checkSelfPermission(
+//                        this,
+//                        permission
+//                    ) != PackageManager.PERMISSION_GRANTED
+//                ) {
+//                    val snackbar = Snackbar.make(
+//                        Objects.requireNonNull<View>(filesFragment.view),
+//                        "Application won't work without $permission",
+//                        Snackbar.LENGTH_LONG
+//                    )
+//                    snackbar.setActionTextColor(Color.rgb(255, 165, 0))
+//                    snackbar.setAction("GRANT") { requestPermissions() }
+//                    snackbar.show()
+//                    break
+//                }
+//            }
+//        }
+//    }
 
-                if (allGranted)
-                    initiate()
-            }
 
-            1452 -> for (permission in permissions) {
-                if (ActivityCompat.checkSelfPermission(
-                        this,
-                        permission
-                    ) != PackageManager.PERMISSION_GRANTED
-                ) {
-                    val snackbar = Snackbar.make(
-                        Objects.requireNonNull<View>(filesFragment.view),
-                        "Application won't work without $permission",
-                        Snackbar.LENGTH_LONG
-                    )
-                    snackbar.setActionTextColor(Color.rgb(255, 165, 0))
-                    snackbar.setAction("GRANT") { requestPermissions() }
-                    snackbar.show()
-                    break
-                }
-            }
-        }
-    }
-
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-
-        val result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data)
-        if (result != null) {
-            myWifiManager.resultGenerated(result.contents)
-        }
-    }
+//    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+//
+//        val result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data)
+//        if (result != null) {
+//            myWifiManager.resultGenerated(result.contents)
+//        }
+//    }
 
     override fun onBackPressed() {
         if (drawerLayout.isDrawerOpen(navigationView)) {
@@ -480,8 +492,6 @@ class MainActivity : CAppCompatActivity() {
 
 
     class PlaceholderFragment : Fragment() {
-
-
         override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?
@@ -491,8 +501,6 @@ class MainActivity : CAppCompatActivity() {
     }
 
     inner class MainPagerAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
-
-
         override fun getItem(position: Int): Fragment {
             println("Request for position $position")
             when (position) {
@@ -502,6 +510,7 @@ class MainActivity : CAppCompatActivity() {
                     return rootFragment
                 }
                 1 -> {
+                    appsFragment = AppsFragment()
                     Logger.log("AppsFragment " + System.currentTimeMillis(), this)
                     return appsFragment
                 }

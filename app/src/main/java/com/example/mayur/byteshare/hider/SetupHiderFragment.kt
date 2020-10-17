@@ -1,12 +1,12 @@
-package com.example.mayur.xportal.hider
+package com.example.mayur.byteshare.hider
 
 
 import android.content.Context
 import android.os.Bundle
-import android.support.design.widget.Snackbar
-import android.support.design.widget.TextInputEditText
-import android.support.design.widget.TextInputLayout
-import android.support.v4.app.Fragment
+import com.google.android.material.snackbar.Snackbar
+import com.google.android.material.textfield.TextInputEditText
+import com.google.android.material.textfield.TextInputLayout
+import androidx.fragment.app.Fragment
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
@@ -16,17 +16,16 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.Spinner
-import com.example.mayur.xportal.R
+import com.example.mayur.byteshare.hider.HiderActivity
+import com.example.mayur.byteshare.R
 import java.util.*
 
 /**
  * @author mayur
  */
 class SetupHiderFragment : Fragment() {
-
-
     private var question = ""
-    internal lateinit var hiderActivity: HiderActivity
+    private lateinit var hiderActivity: HiderActivity
 
     interface OnSetupButtonClicked {
         fun onClick(v: View, pin: String, question: String, answer: String)

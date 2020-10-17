@@ -1,4 +1,4 @@
-package com.example.mayur.byteshare.connection.wifi
+package com.example.mayur.byteshare.connection.wifimanager
 
 import android.Manifest
 import android.annotation.SuppressLint
@@ -21,12 +21,12 @@ import androidx.annotation.RequiresApi
 import androidx.annotation.RequiresPermission
 import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
-import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.example.mayur.byteshare.Constants
 import com.example.mayur.byteshare.MainActivity
-import com.example.mayur.byteshare.connection.FileInfo
-import com.example.mayur.byteshare.connection.SocketContainer
 import com.example.mayur.byteshare.connection.intent.Intents
+import com.example.mayur.byteshare.connection.wifi.MyWifiManager
+import com.example.mayur.byteshare.R
+import com.example.mayur.byteshare.connection.FileInfo
 import com.example.mayur.byteshare.connection.logger.Logger
 import com.example.mayur.byteshare.fragments.history.*
 import org.json.JSONException
@@ -37,11 +37,14 @@ import java.net.Socket
 import java.util.*
 import java.util.concurrent.ExecutionException
 
+object SocketContainer {
+    var socket: Socket? = null
+}
 
 /**
  * Class that holds Transmission at Wifi side
  */
-class TransferWifi: Service() {
+class TransferWifi(val mainActivity: MainActivity): Service() {
     override fun onBind(intent: Intent?): IBinder? = null
     private var senderTimer: Timer? = null
     private val intentFilter = IntentFilter()
@@ -82,7 +85,7 @@ class TransferWifi: Service() {
             setContentTitle("ByteShare")
             setContentText("Sharing...")
             setSubText("SubText")
-            setSmallIcon(com.example.mayur.byteshare.R.drawable.ic_xportal)
+            setSmallIcon(R.drawable.ic_xportal)
 
             setContentIntent(PendingIntent.getActivity(this@TransferWifi, 1001, Intent(this@TransferWifi, MainActivity::class.java), PendingIntent.FLAG_NO_CREATE))
             setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
@@ -135,7 +138,7 @@ class TransferWifi: Service() {
                                 network.bindSocket(socket)
                                 socket!!.connect(
                                     InetSocketAddress(
-                                        MyWifiManager.ip,
+                                            MyWifiManager.ip,
                                         Constants.TransferConstants.PORT
                                     )
                                 )
@@ -329,7 +332,7 @@ class TransferWifi: Service() {
                             val fileInfos = ArrayList<FileInfo>(files.size)
                             for (i in files){
                                 val f = File(i)
-                                fileInfos.add(FileInfo(f, f.name))
+                                fileInfos.add(FileInfo(f, f.name, false))
                             }
                             sendFiles(fileInfos)
                         }
@@ -371,9 +374,9 @@ class TransferWifi: Service() {
 
     @SuppressLint("StaticFieldLeak")
     private inner class SenderTask internal constructor(
-        internal var fileInfo: FileInfo,
-        internal var fileInputStream: FileInputStream,
-        internal var outputStream: OutputStream
+            internal var fileInfo: FileInfo,
+            internal var fileInputStream: FileInputStream,
+            internal var outputStream: OutputStream
     ) : AsyncTask<Void?, Void?, HistoryInfo?>() {
         internal lateinit var historyInfo: HistoryInfo
 
@@ -564,17 +567,17 @@ class TransferWifi: Service() {
         }
     }
 
-//    companion object {
-//
-//        private var transferWifi: TransferWifi? = null
-//
-//        fun getSender(
-//            mainActivity: MainActivity
-//        ): TransferWifi {
-//            if (transferWifi == null) {
-//                transferWifi = TransferWifi(mainActivity)
-//            }
-//            return transferWifi as TransferWifi
-//        }
-//    }
+    companion object {
+
+        private var transferWifi: TransferWifi? = null
+
+        fun getSender(
+            mainActivity: MainActivity
+        ): TransferWifi {
+            if (transferWifi == null) {
+                transferWifi = TransferWifi(mainActivity)
+            }
+            return transferWifi as TransferWifi
+        }
+    }
 }

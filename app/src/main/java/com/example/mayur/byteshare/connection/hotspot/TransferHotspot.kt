@@ -1,17 +1,17 @@
-package com.example.mayur.xportal.connection.hotspot
+package com.example.mayur.byteshare.connection.hotspot
 
 import android.Manifest
 import android.annotation.SuppressLint
 import android.content.pm.PackageManager
 import android.os.AsyncTask
 import android.os.Environment
-import android.support.annotation.RequiresPermission
-import android.support.v4.app.ActivityCompat
-import com.example.mayur.xportal.Constants
-import com.example.mayur.xportal.MainActivity
-import com.example.mayur.xportal.connection.FileInfo
-import com.example.mayur.xportal.connection.logger.Logger
-import com.example.mayur.xportal.fragments.history.*
+import androidx.annotation.RequiresPermission
+import androidx.core.app.ActivityCompat
+import com.example.mayur.byteshare.Constants
+import com.example.mayur.byteshare.MainActivity
+import com.example.mayur.byteshare.connection.FileInfo
+import com.example.mayur.byteshare.connection.logger.Logger
+import com.example.mayur.byteshare.fragments.history.*
 import org.json.JSONException
 import org.json.JSONObject
 import java.io.*
@@ -212,7 +212,7 @@ class TransferHotspot private constructor(private val mainActivity: MainActivity
     private fun mTerminateConnection() {
         terminateConnection()
         mainActivity.connectionTerminated()
-        val hotspotManager = HotspotManager.getHotspotManager()
+        val hotspotManager = HotspotManager.getHotspotManager(mainActivity)
         hotspotManager.terminateConnection()
         hotspotManager.communication.terminateConnection()
     }
@@ -260,9 +260,9 @@ class TransferHotspot private constructor(private val mainActivity: MainActivity
 
     @SuppressLint("StaticFieldLeak")
     private inner class SenderTask internal constructor(
-        internal var fileInfo: FileInfo,
-        internal var fileInputStream: FileInputStream,
-        internal var outputStream: OutputStream
+            internal var fileInfo: FileInfo,
+            internal var fileInputStream: FileInputStream,
+            internal var outputStream: OutputStream
     ) : AsyncTask<Void, Void, HistoryInfo>() {
         internal lateinit var historyInfo: HistoryInfo
 

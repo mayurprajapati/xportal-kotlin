@@ -1,17 +1,17 @@
-package com.example.mayur.xportal.fragments.photos
+package com.example.mayur.byteshare.fragments.photos
 
 import android.os.Bundle
 import android.view.WindowManager
 import android.widget.ImageView
 import com.bumptech.glide.Glide
-import com.example.mayur.xportal.R
+import com.example.mayur.byteshare.R
 import io.multimoon.colorful.CAppCompatActivity
 import java.io.File
 
 class FullScreenImageActivity : CAppCompatActivity() {
 
 
-    internal lateinit var imageView: ImageView
+    private lateinit var imageView: ImageView
     private lateinit var currentPhoto: String
     //    FullScreenPagerAdapter adapter;
     //    ViewPager viewPager;

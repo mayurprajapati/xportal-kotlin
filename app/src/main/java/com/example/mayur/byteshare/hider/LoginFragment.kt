@@ -1,12 +1,12 @@
-package com.example.mayur.xportal.hider
+package com.example.mayur.byteshare.hider
 
 
 import android.content.Context
 import android.os.Bundle
-import android.support.design.widget.TextInputEditText
-import android.support.design.widget.TextInputLayout
-import android.support.v4.app.Fragment
-import android.support.v7.app.AlertDialog
+import com.google.android.material.textfield.TextInputEditText
+import com.google.android.material.textfield.TextInputLayout
+import androidx.fragment.app.Fragment
+import androidx.appcompat.app.AlertDialog
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
@@ -16,7 +16,7 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.Button
 import android.widget.TextView
 
-import com.example.mayur.xportal.R
+import com.example.mayur.byteshare.R
 
 import java.util.Objects
 

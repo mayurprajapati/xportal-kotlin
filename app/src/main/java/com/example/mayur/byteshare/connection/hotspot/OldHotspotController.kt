@@ -1,4 +1,4 @@
-package com.example.mayur.xportal.connection.hotspot
+package com.example.mayur.byteshare.connection.hotspot
 
 import android.net.wifi.WifiConfiguration
 import android.net.wifi.WifiManager

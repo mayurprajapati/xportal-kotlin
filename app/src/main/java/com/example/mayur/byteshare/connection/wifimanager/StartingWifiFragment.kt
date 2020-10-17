@@ -1,4 +1,4 @@
-package com.example.mayur.byteshare.connection.wifi
+package com.example.mayur.byteshare.connection.wifimanager
 
 
 import android.os.Bundle
@@ -9,9 +9,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
-
+import com.example.mayur.byteshare.connection.wifi.MyWifiManager
 import com.example.mayur.byteshare.R
-
 
 /**
  * A simple [Fragment] subclass.

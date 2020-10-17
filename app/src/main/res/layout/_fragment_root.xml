@@ -4,7 +4,7 @@
     android:id="@+id/connectionFragmentContainer"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".connection.connection.RootFragment">
+    tools:context="com.example.mayur.byteshare.connection.connection.RootFragment">
 
     <!-- TODO: Update blank fragment layout -->
 

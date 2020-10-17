@@ -1,4 +1,4 @@
-package com.example.mayur.xportal.connection.hotspot
+package com.example.mayur.byteshare.connection.hotspot
 
 import android.content.BroadcastReceiver
 import android.content.Context
@@ -9,16 +9,17 @@ import android.net.wifi.WifiConfiguration
 import android.net.wifi.WifiManager
 import android.os.Build
 import android.os.Bundle
-import android.support.v4.app.FragmentManager
-import android.support.v4.app.FragmentTransaction
-import com.example.mayur.xportal.Constants
-import com.example.mayur.xportal.MainActivity
-import com.example.mayur.xportal.connection.communication.Communication
-import com.example.mayur.xportal.connection.communication.OnCommunicationInterrupted
-import com.example.mayur.xportal.connection.communication.OnCommunicationSuccessful
-import com.example.mayur.xportal.connection.communication.OnConnectionTerminated
-import com.example.mayur.xportal.connection.location.LocationPermissionFragment
-import com.example.mayur.xportal.connection.logger.Logger
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentTransaction
+import com.example.mayur.byteshare.Constants
+import com.example.mayur.byteshare.MainActivity
+import com.example.mayur.byteshare.connection.communication.Communication
+import com.example.mayur.byteshare.connection.communication.OnCommunicationInterrupted
+import com.example.mayur.byteshare.connection.communication.OnCommunicationSuccessful
+import com.example.mayur.byteshare.connection.communication.OnConnectionTerminated
+import com.example.mayur.byteshare.connection.location.LocationPermissionFragment
+import com.example.mayur.byteshare.connection.logger.Logger
+import com.example.mayur.byteshare.connection.wifi.MyWifiManager
 import com.google.zxing.BarcodeFormat
 import com.google.zxing.WriterException
 import com.journeyapps.barcodescanner.BarcodeEncoder
@@ -28,8 +29,6 @@ import java.net.SocketException
 import java.util.*
 
 class HotspotManager private constructor(private val mainActivity: MainActivity) {
-
-
     private val qrCodeFragment: QRCodeFragment
     private val broadcastReceiver: BroadcastReceiver
     private val intentFilter: IntentFilter
@@ -253,13 +252,13 @@ class HotspotManager private constructor(private val mainActivity: MainActivity)
                         communication =
                                 Communication(Constants.HotspotConstants.TYPE_HOTSPOT, mainActivity)
                         communication.setOnCommunicationInterruptedListener(object :
-                            OnCommunicationInterrupted {
+                                OnCommunicationInterrupted {
                             override fun onCommunicationInterrupted() {
                             }
                         })
 
                         communication.setOnCommunicationSuccessfulListener(object :
-                            OnCommunicationSuccessful {
+                                OnCommunicationSuccessful {
                             override fun onCommunicationSuccessful(deviceName: String) {
                                 MainActivity.handler.post {
                                     Logger.log("Communication Successful", this@HotspotManager)
@@ -271,7 +270,7 @@ class HotspotManager private constructor(private val mainActivity: MainActivity)
                         })
 
                         communication.setOnConnectionTerminatedListener(object :
-                            OnConnectionTerminated {
+                                OnConnectionTerminated {
                             override fun onCommunicationTerminated() {
                                 terminateConnection()
                                 val sender = TransferHotspot.getSender(mainActivity, false)
@@ -399,11 +398,12 @@ class HotspotManager private constructor(private val mainActivity: MainActivity)
         private const val WIFI_AP_STATE_ENABLING = 12
         private const val WIFI_AP_STATE_ENABLED = 13
         private const val WIFI_AP_STATE_FAILED = 14
-        private lateinit var hotspotManager: HotspotManager
+        private var hotspotManager: HotspotManager? = null
 
-
-        fun getHotspotManager(): HotspotManager {
-            return hotspotManager
+        fun getHotspotManager(mainActivity: MainActivity): HotspotManager {
+            if (hotspotManager == null)
+                hotspotManager = HotspotManager(mainActivity)
+            return hotspotManager as HotspotManager
         }
     }
 }

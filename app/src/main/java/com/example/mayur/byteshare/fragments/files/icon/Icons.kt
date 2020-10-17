@@ -1,4 +1,4 @@
-package com.example.mayur.xportal.fragments.files.icon
+package com.example.mayur.byteshare.fragments.files.icon
 
 import android.annotation.SuppressLint
 import android.content.pm.PackageInfo
@@ -7,7 +7,7 @@ import android.os.AsyncTask
 import android.widget.ImageView
 
 import com.bumptech.glide.Glide
-import com.example.mayur.xportal.R
+import com.example.mayur.byteshare.R
 
 import java.io.File
 

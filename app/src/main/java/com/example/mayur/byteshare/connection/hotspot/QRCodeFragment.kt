@@ -1,11 +1,11 @@
-package com.example.mayur.xportal.connection.hotspot
+package com.example.mayur.byteshare.connection.hotspot
 
 
 import android.graphics.Bitmap
 import android.graphics.Color
 import android.os.Bundle
-import android.support.design.widget.BottomSheetDialogFragment
-import android.support.v4.app.Fragment
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,8 +14,10 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.ProgressBar
 import android.widget.TextView
+import com.example.mayur.byteshare.connection.hotspot.HotspotManager
+import com.example.mayur.byteshare.connection.hotspot.HotspotManagerCallbackListener
 
-import com.example.mayur.xportal.R
+import com.example.mayur.byteshare.R
 
 /**
  * A simple [Fragment] subclass.
@@ -39,7 +41,7 @@ class QRCodeFragment : BottomSheetDialogFragment(), HotspotManagerCallbackListen
     override fun hotspotStarted(bitmap: Bitmap, hotspotManager: HotspotManager) {
         val linearLayout = view as LinearLayout
         val textView = view.findViewById<TextView>(R.id.txt_status)
-        textView.text = getString(R.string.msg_scan_qr_code_to_start_sharing)
+        textView.text = "Scan QR Code to start sharing"
         val cancel = view.findViewById<Button>(R.id.btn_cancel_hotspot)
         cancel.isEnabled = true
         cancel.setTextColor(Color.BLACK)

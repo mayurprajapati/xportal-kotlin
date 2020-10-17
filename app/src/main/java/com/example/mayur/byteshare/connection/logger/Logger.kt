@@ -1,8 +1,8 @@
-package com.example.mayur.xportal.connection.logger
+package com.example.mayur.byteshare.connection.logger
 
 import android.util.Log
 
-import com.example.mayur.xportal.MainActivity
+import com.example.mayur.byteshare.MainActivity
 
 object Logger {
     fun log(data: String, o: Any) {

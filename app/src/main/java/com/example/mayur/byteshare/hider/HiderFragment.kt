@@ -1,25 +1,25 @@
-package com.example.mayur.xportal.hider
+package com.example.mayur.byteshare.hider
 
 
 import android.content.DialogInterface
 import android.os.AsyncTask
 import android.os.Bundle
-import android.support.design.widget.Snackbar
-import android.support.v4.app.Fragment
-import android.support.v4.app.FragmentActivity
-import android.support.v7.app.AlertDialog
-import android.support.v7.widget.CardView
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
+import com.google.android.material.snackbar.Snackbar
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
+import androidx.appcompat.app.AlertDialog
+import androidx.cardview.widget.CardView
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
-import com.example.mayur.xportal.MainActivity
-import com.example.mayur.xportal.R
-import com.example.mayur.xportal.connection.FileInfo
-import com.example.mayur.xportal.connection.hotspot.TransferHotspot
-import com.example.mayur.xportal.connection.wifi.TransferWifi
+import com.example.mayur.byteshare.MainActivity
+import com.example.mayur.byteshare.connection.wifimanager.TransferWifi
+import com.example.mayur.byteshare.R
+import com.example.mayur.byteshare.connection.FileInfo
+import com.example.mayur.byteshare.connection.hotspot.TransferHotspot
 import java.io.File
 import java.io.FileInputStream
 import java.io.FileOutputStream
@@ -31,7 +31,7 @@ import java.util.*
  */
 class HiderFragment : Fragment() {
 
-    internal lateinit var cancelSelection: ImageButton
+    private lateinit var cancelSelection: ImageButton
     internal lateinit var checkBoxSelectAll: CheckBox
     private lateinit var mainActivity: MainActivity
     private lateinit var hiddenFilesAdapter: HiddenFilesAdapter

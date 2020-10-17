@@ -1,4 +1,4 @@
-package com.example.mayur.byteshare.util
+package com.example.mayur.byteshare.utils
 
 import android.app.Activity
 import android.content.ActivityNotFoundException
@@ -8,8 +8,6 @@ import android.os.Build
 import androidx.core.content.FileProvider
 import android.webkit.MimeTypeMap
 import android.widget.Toast
-
-import com.example.mayur.byteshare.BuildConfig
 
 import java.io.File
 import java.text.DecimalFormat
@@ -123,33 +121,33 @@ object FileUtils {
 
     if (mime == "") {
       val intent = Intent(Intent.ACTION_VIEW)
-      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-        val uri = FileProvider.getUriForFile(
-          activity,
-          BuildConfig.APPLICATION_ID + ".provider",
-          f
-        )
-        intent.setDataAndType(uri, "*/*")
-        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
-        intent.flags = Intent.FLAG_GRANT_READ_URI_PERMISSION
-      } else {
-        intent.setDataAndType(Uri.fromFile(f), "*/*")
-      }
+//      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+//        val uri = FileProvider.getUriForFile(
+//          activity,
+//          BuildConfig.APPLICATION_ID + ".provider",
+//          f
+//        )
+//        intent.setDataAndType(uri, "*/*")
+//        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+//        intent.flags = Intent.FLAG_GRANT_READ_URI_PERMISSION
+//      } else {
+//        intent.setDataAndType(Uri.fromFile(f), "*/*")
+//      }
       activity.startActivity(intent)
     } else {
       val intent = Intent(Intent.ACTION_VIEW)
-      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-        val uri = FileProvider.getUriForFile(
-          activity,
-          BuildConfig.APPLICATION_ID + ".provider",
-          f
-        )
-        intent.setDataAndType(uri, mime)
-        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
-        intent.flags = Intent.FLAG_GRANT_READ_URI_PERMISSION
-      } else {
-        intent.setDataAndType(Uri.fromFile(f), mime)
-      }
+//      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+//        val uri = FileProvider.getUriForFile(
+//          activity,
+//          BuildConfig.APPLICATION_ID + ".provider",
+//          f
+//        )
+//        intent.setDataAndType(uri, mime)
+//        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+//        intent.flags = Intent.FLAG_GRANT_READ_URI_PERMISSION
+//      } else {
+//        intent.setDataAndType(Uri.fromFile(f), mime)
+//      }
       try {
         activity.startActivity(intent)
       } catch (e: ActivityNotFoundException) {

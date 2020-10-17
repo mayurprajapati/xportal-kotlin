@@ -1,18 +1,18 @@
-package com.example.mayur.xportal.connection.hotspot
+package com.example.mayur.byteshare.connection.hotspot
 
 
 import android.content.Intent
 import android.os.Bundle
 import android.provider.Settings
-import android.support.design.widget.BottomSheetDialogFragment
-import android.support.v4.app.Fragment
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 
-import com.example.mayur.xportal.R
+import com.example.mayur.byteshare.R
 
 
 /**
@@ -28,7 +28,6 @@ class CouldNotStartHotspotFragment : BottomSheetDialogFragment() {
         // Inflate the layout for this fragment
         val view =
             inflater.inflate(R.layout.connection_fragment_could_not_start_hotspot, container, false)
-        assert(arguments != null)
         if (arguments!!.getBoolean("wifi")) {
             val textView = view.findViewById<TextView>(R.id.txt_could_not)
             textView.text = "Could not start Wifi for sharing"

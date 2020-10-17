@@ -1,4 +1,4 @@
-package com.example.mayur.xportal.connection.communication
+package com.example.mayur.byteshare.connection.communication
 
 interface OnCommunicationSuccessful {
     fun onCommunicationSuccessful(deviceName: String)

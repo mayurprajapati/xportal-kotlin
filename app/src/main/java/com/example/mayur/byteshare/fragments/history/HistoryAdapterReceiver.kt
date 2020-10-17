@@ -1,23 +1,23 @@
-package com.example.mayur.xportal.fragments.history
+package com.example.mayur.byteshare.fragments.history
 
 import android.annotation.SuppressLint
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
-import com.example.mayur.xportal.MainActivity
-import com.example.mayur.xportal.R
-import com.example.mayur.xportal.fragments.files.icon.Icons
-import com.example.mayur.xportal.fragments.history.database.ReceiverHistory
-import com.example.mayur.xportal.util.FileUtils
+import com.example.mayur.byteshare.MainActivity
+import com.example.mayur.byteshare.R
+import com.example.mayur.byteshare.fragments.files.icon.Icons
+import com.example.mayur.byteshare.fragments.history.database.ReceiverHistory
+import com.example.mayur.byteshare.utils.FileUtils
 import java.util.*
 
 class HistoryAdapterReceiver(
-    private val mainActivity: MainActivity,
-    private val historyReceiveFragment: HistoryReceiveFragment
+        private val mainActivity: MainActivity,
+        private val historyReceiveFragment: HistoryReceiveFragment
 ) : RecyclerView.Adapter<HistoryAdapterReceiver.ReceiverHistoryViewHolder>() {
     var recyclerView: RecyclerView
     val historyInfoList: MutableList<HistoryInfo>
@@ -143,8 +143,8 @@ class HistoryAdapterReceiver(
         private var historyAdapterReceiver: HistoryAdapterReceiver? = null
 
         fun newInstance(
-            mainActivity: MainActivity?,
-            historyReceiveFragment: HistoryReceiveFragment?
+                mainActivity: MainActivity?,
+                historyReceiveFragment: HistoryReceiveFragment?
         ): HistoryAdapterReceiver? {
 
             if ((mainActivity == null || historyReceiveFragment == null) && historyAdapterReceiver == null)

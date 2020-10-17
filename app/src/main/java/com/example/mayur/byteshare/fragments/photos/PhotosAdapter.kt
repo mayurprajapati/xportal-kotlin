@@ -1,14 +1,14 @@
-package com.example.mayur.xportal.fragments.photos
+package com.example.mayur.byteshare.fragments.photos
 
 import android.app.AlertDialog
 import android.content.DialogInterface
 import android.content.Intent
 import android.net.Uri
 import android.provider.MediaStore
-import android.support.design.widget.Snackbar
-import android.support.v4.widget.SwipeRefreshLayout
-import android.support.v7.widget.CardView
-import android.support.v7.widget.RecyclerView
+import com.google.android.material.snackbar.Snackbar
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import androidx.cardview.widget.CardView
+import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,16 +19,16 @@ import android.widget.Toast
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.RequestOptions
-import com.example.mayur.xportal.MainActivity
-import com.example.mayur.xportal.R
-import com.example.mayur.xportal.util.FileUtils
+import com.example.mayur.byteshare.MainActivity
+import com.example.mayur.byteshare.utils.FileUtils
+import com.example.mayur.byteshare.R
 import java.io.File
 import java.text.DateFormat
 import java.util.*
 
 class PhotosAdapter(
-    private val mPhotosFragment: PhotosFragment, //    private Cursor mMediaStoreCursor;
-    private val mainActivity: MainActivity
+        private val mPhotosFragment: PhotosFragment, //    private Cursor mMediaStoreCursor;
+        private val mainActivity: MainActivity
 ) : RecyclerView.Adapter<PhotosAdapter.PhotosHolder>(), SwipeRefreshLayout.OnRefreshListener {
     var cancelSelectionClickListener: View.OnClickListener
     var selectAllOnClickListener: View.OnClickListener
@@ -286,13 +286,13 @@ class PhotosAdapter(
                     Snackbar.make(
                         mainActivity.mViewPager,
                         "Image(s) deleted successfully.",
-                        Toast.LENGTH_SHORT
+                        1
                     ).show()
                 } else
                     Snackbar.make(
                         mainActivity.mViewPager,
                         "Couldn't delete song(s).",
-                        Toast.LENGTH_SHORT
+                        1
                     ).show()
             }
             clearCount()

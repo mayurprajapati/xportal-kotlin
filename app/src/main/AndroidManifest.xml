@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    package="com.example.mayur.xportal">
+        xmlns:tools="http://schemas.android.com/tools"
+        package="com.example.mayur.byteshare">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
@@ -17,68 +17,57 @@
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission
-        android:name="android.permission.WRITE_SETTINGS"
-        tools:ignore="ProtectedPermissions" />
+            android:name="android.permission.WRITE_SETTINGS"
+            tools:ignore="ProtectedPermissions" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
 
     <application
-        android:name=".XPortal"
-        android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
-        android:resizeableActivity="false"
-        android:roundIcon="@mipmap/ic_launcher_round"
-        android:supportsRtl="true"
-        android:theme="@style/AppTheme"
-        tools:ignore="GoogleAppIndexingWarning"
-        tools:targetApi="n">
+            android:name=".ByteShare"
+            android:icon="@mipmap/ic_launcher"
+            android:label="@string/app_name"
+            android:resizeableActivity="false"
+            android:roundIcon="@mipmap/ic_launcher_round"
+            android:supportsRtl="true"
+            android:theme="@style/AppTheme"
+            tools:ignore="GoogleAppIndexingWarning"
+            tools:targetApi="n">
         <activity
-            android:name="com.journeyapps.barcodescanner.CaptureActivity"
-            android:screenOrientation="portrait"
-            tools:replace="screenOrientation" />
+                android:name="com.journeyapps.barcodescanner.CaptureActivity"
+                android:screenOrientation="portrait"
+                tools:replace="screenOrientation" />
         <activity
-            android:name=".MainActivity"
-            android:label="@string/title_activity_main_tabbed"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme">
+                android:name="com.example.mayur.byteshare.MainActivity"
+                android:label="@string/title_activity_main_tabbed"
+                android:screenOrientation="portrait"
+                android:theme="@style/AppTheme">
 
-            <!-- <intent-filter> -->
-            <!-- <action android:name="android.intent.action.MAIN" /> -->
-
-
-            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
-            <!-- </intent-filter> -->
-        </activity>
-
-        <provider
-            android:name="android.support.v4.content.FileProvider"
-            android:authorities="${applicationId}.provider"
-            android:exported="false"
-            android:grantUriPermissions="true">
-            <meta-data
-                android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/provider_paths" />
-        </provider>
-
-        <activity
-            android:name=".LauncherActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize"
-            android:label="@string/title_activity_main_tabbed"
-            android:screenOrientation="portrait"
-            android:theme="@style/FullscreenTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <provider
+                android:name="androidx.core.content.FileProvider"
+                android:authorities="${applicationId}.provider"
+                android:exported="false"
+                android:grantUriPermissions="true">
+            <meta-data
+                    android:name="android.support.FILE_PROVIDER_PATHS"
+                    android:resource="@xml/provider_paths" />
+        </provider>
+
         <activity
-            android:name=".hider.HiderActivity"
-            android:parentActivityName=".MainActivity"
-            android:windowSoftInputMode="adjustResize" />
-        <activity android:name=".fragments.photos.FullScreenImageActivity" />
-        <activity android:name=".settings.SettingsActivity"
-            android:parentActivityName=".MainActivity"
-            android:windowSoftInputMode="adjustResize"/>
+                android:name="com.example.mayur.byteshare.hider.HiderActivity"
+                android:parentActivityName="com.example.mayur.byteshare.MainActivity"
+                android:windowSoftInputMode="adjustResize" />
+        <activity android:name="com.example.mayur.byteshare.fragments.photos.FullScreenImageActivity" />
+        <activity
+                android:name="com.example.mayur.byteshare.settings.SettingsActivity"
+                android:parentActivityName="com.example.mayur.byteshare.MainActivity"
+                android:windowSoftInputMode="adjustResize" />
 
     </application>
 

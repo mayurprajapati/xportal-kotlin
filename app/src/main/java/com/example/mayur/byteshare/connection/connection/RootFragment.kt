@@ -1,16 +1,16 @@
-package com.example.mayur.xportal.connection.connection
+package com.example.mayur.byteshare.connection.connection
 
 
 import android.os.Bundle
-import android.support.v4.app.Fragment
-import android.support.v4.app.FragmentActivity
-import android.support.v4.app.FragmentTransaction
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
+import androidx.fragment.app.FragmentTransaction
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 
-import com.example.mayur.xportal.MainActivity
-import com.example.mayur.xportal.R
+import com.example.mayur.byteshare.MainActivity
+import com.example.mayur.byteshare.R
 
 import java.util.Objects
 
@@ -18,8 +18,6 @@ import java.util.Objects
  * A simple [Fragment] subclass.
  */
 class RootFragment : Fragment() {
-
-
     private var currentFragment: Fragment? = null
 
 

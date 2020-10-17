@@ -1,4 +1,4 @@
-package com.example.mayur.xportal.fragments.apps
+package com.example.mayur.byteshare.fragments.apps
 
 import android.content.Context
 import android.content.DialogInterface
@@ -9,10 +9,10 @@ import android.content.pm.PackageManager
 import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.AsyncTask
-import android.support.v4.widget.SwipeRefreshLayout
-import android.support.v7.app.AlertDialog
-import android.support.v7.widget.CardView
-import android.support.v7.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import androidx.appcompat.app.AlertDialog
+import androidx.cardview.widget.CardView
+import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,18 +20,19 @@ import android.widget.CompoundButton
 import android.widget.ImageView
 import android.widget.TextView
 import com.bumptech.glide.Glide
-import com.example.mayur.xportal.MainActivity
-import com.example.mayur.xportal.R
-import com.example.mayur.xportal.connection.logger.Logger
-import com.example.mayur.xportal.util.FileUtils
+import com.example.mayur.byteshare.MainActivity
+import com.example.mayur.byteshare.utils.FileUtils
+import com.example.mayur.byteshare.R
+import com.example.mayur.byteshare.connection.logger.Logger
+import kotlinx.android.synthetic.main.files_layout_file_properties.*
 import java.io.File
 import java.text.DateFormat
 import java.util.*
 
 class AppsAdapter(
-    mainActivity: MainActivity,
-    recyclerView: RecyclerView,
-    private val appsFragment: AppsFragment
+        mainActivity: MainActivity,
+        recyclerView: RecyclerView,
+        private val appsFragment: AppsFragment
 ) : RecyclerView.Adapter<AppsAdapter.AppHolder>(), SwipeRefreshLayout.OnRefreshListener {
 
     var cancelSelectionOnClickListener: View.OnClickListener
@@ -62,10 +63,10 @@ class AppsAdapter(
         this.mainActivity = mainActivity
         packageManager = context.packageManager
         packageInfoList = packageManager.getInstalledPackages(0)
-        packageInfoList.sortWith(Comparator { o1, o2 ->
+        packageInfoList.sortWith { o1, o2 ->
             o1.applicationInfo.loadLabel(packageManager).toString().toLowerCase()
-                .compareTo(o2.applicationInfo.loadLabel(packageManager).toString().toLowerCase())
-        })
+                    .compareTo(o2.applicationInfo.loadLabel(packageManager).toString().toLowerCase())
+        }
 
         removeSystemPackages()
         cancelSelectionOnClickListener = View.OnClickListener {
@@ -136,7 +137,7 @@ class AppsAdapter(
                 alertDialog.window!!.setBackgroundDrawableResource(R.drawable.background_dialogbox)
                 val dialogView = LayoutInflater.from(mainActivity).inflate(
                     R.layout.files_layout_file_properties,
-                    mainActivity.findViewById<View>(R.id.filePropertiesRoot) as ViewGroup
+                    mainActivity.filePropertiesRoot as ViewGroup
                 )
                 alertDialog.setView(dialogView)
 
@@ -293,9 +294,9 @@ class AppsAdapter(
     }
 
     private class ImageLoader(
-        private val appHolder: AppHolder,
-        private val applicationInfo: ApplicationInfo,
-        private val packageManager: PackageManager
+            private val appHolder: AppHolder,
+            private val applicationInfo: ApplicationInfo,
+            private val packageManager: PackageManager
     ) : AsyncTask<Void, Void, Void>() {
 
         private var drawable: Drawable? = null
@@ -309,8 +310,8 @@ class AppsAdapter(
             }
         }
 
-        override fun onPostExecute(aVoid: Void) {
-            super.onPostExecute(aVoid)
+        override fun onPostExecute(aVoid: Void?) {
+//            super.onPostExecute(aVoid)
 
             if (!isCancelled) {
                 appHolder.appName.text = appName

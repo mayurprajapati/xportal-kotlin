@@ -1,24 +1,19 @@
-package com.example.mayur.xportal.connection.connection
+package com.example.mayur.byteshare.connection.connection
 
 
-import android.graphics.Color
 import android.os.Bundle
-import android.support.v4.app.Fragment
-import android.support.v7.widget.CardView
+import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 
-import com.example.mayur.xportal.AppStyle
-import com.example.mayur.xportal.R
+import com.example.mayur.byteshare.R
 
 
 /**
  * A simple [Fragment] subclass.
  */
 class ConnectionFragment : Fragment() {
-
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

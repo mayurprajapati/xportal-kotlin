@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.photos.FullScreenImageActivity">
-    <android.support.v4.view.ViewPager
+    tools:context="com.example.mayur.byteshare.fragments.photos.FullScreenImageActivity">
+    <androidx.viewpager.widget.ViewPager
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/photoPager"

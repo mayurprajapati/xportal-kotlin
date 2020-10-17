@@ -1,16 +1,16 @@
-package com.example.mayur.xportal.fragments.photos
+package com.example.mayur.byteshare.fragments.photos
 
 import android.content.Context
 import android.database.Cursor
 import android.net.Uri
 import android.provider.MediaStore
-import android.support.v4.view.PagerAdapter
+import androidx.viewpager.widget.PagerAdapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import com.bumptech.glide.Glide
-import com.example.mayur.xportal.R
+import com.example.mayur.byteshare.R
 
 class FullScreenPagerAdapter(
     internal var context: Context,

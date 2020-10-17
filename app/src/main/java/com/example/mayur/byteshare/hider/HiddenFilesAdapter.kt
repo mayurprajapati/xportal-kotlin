@@ -1,23 +1,23 @@
-package com.example.mayur.xportal.hider
+package com.example.mayur.byteshare.hider
 
 import android.app.AlertDialog
-import android.arch.lifecycle.Lifecycle
-import android.arch.lifecycle.LifecycleObserver
-import android.arch.lifecycle.OnLifecycleEvent
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleObserver
+import androidx.lifecycle.OnLifecycleEvent
 import android.content.DialogInterface
 import android.os.FileObserver
-import android.support.design.widget.Snackbar
-import android.support.v7.widget.RecyclerView
+import com.google.android.material.snackbar.Snackbar
+import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.webkit.MimeTypeMap
 import android.widget.*
-import com.example.mayur.xportal.MainActivity
-import com.example.mayur.xportal.R
-import com.example.mayur.xportal.fragments.files.FileSizeGenerator
-import com.example.mayur.xportal.fragments.files.icon.Icons
-import com.example.mayur.xportal.util.FileUtils
+import com.example.mayur.byteshare.MainActivity
+import com.example.mayur.byteshare.utils.FileUtils
+import com.example.mayur.byteshare.R
+import com.example.mayur.byteshare.fragments.files.FileSizeGenerator
+import com.example.mayur.byteshare.fragments.files.icon.Icons
 import java.io.File
 import java.io.FilenameFilter
 import java.io.IOException
@@ -25,8 +25,8 @@ import java.text.DateFormat
 import java.util.*
 
 class HiddenFilesAdapter(
-    private val hiderFragment: HiderFragment,
-    private val hiderActivity: HiderActivity
+        private val hiderFragment: HiderFragment,
+        private val hiderActivity: HiderActivity
 ) : RecyclerView.Adapter<HiddenFilesAdapter.HiddenViewHolder>(), LifecycleObserver {
 
     private val fileObserver: FileObserver

@@ -1,4 +1,4 @@
-package com.example.mayur.xportal.connection.communication
+package com.example.mayur.byteshare.connection.communication
 
 import android.content.BroadcastReceiver
 import android.content.Context
@@ -11,10 +11,10 @@ import android.net.NetworkRequest
 import android.os.Build
 import android.widget.Toast
 
-import com.example.mayur.xportal.Constants
-import com.example.mayur.xportal.MainActivity
-import com.example.mayur.xportal.connection.intent.Intents
-import com.example.mayur.xportal.connection.logger.Logger
+import com.example.mayur.byteshare.Constants
+import com.example.mayur.byteshare.MainActivity
+import com.example.mayur.byteshare.connection.intent.Intents
+import com.example.mayur.byteshare.connection.logger.Logger
 
 import java.io.DataInputStream
 import java.io.DataOutputStream
@@ -42,7 +42,6 @@ class Communication(type: Int, private val mainActivity: MainActivity) : Thread(
     }
 
     fun makeCommunication() {
-
         val broadcastReceiver = object : BroadcastReceiver() {
             override fun onReceive(context: Context, intent: Intent) {
                 //                try {
@@ -315,7 +314,7 @@ class Communication(type: Int, private val mainActivity: MainActivity) : Thread(
     }
 
     private fun connectionTerminationMessageReader() {
-        Thread(Runnable {
+        Thread {
             try {
                 //true if connection terminated...
                 if (dataInputStream!!.readBoolean()) {
@@ -329,11 +328,11 @@ class Communication(type: Int, private val mainActivity: MainActivity) : Thread(
                 }
             } catch (ignored: IOException) {
             }
-        }).start()
+        }.start()
     }
 
     fun terminateConnection() {
-        Thread(Runnable {
+        Thread {
             try {
                 if (socket != null)
                     dataOutputStream!!.writeBoolean(true)
@@ -359,6 +358,6 @@ class Communication(type: Int, private val mainActivity: MainActivity) : Thread(
                 }
 
             }
-        }).start()
+        }.start()
     }
 }

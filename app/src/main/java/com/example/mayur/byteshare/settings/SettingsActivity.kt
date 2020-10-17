@@ -1,21 +1,21 @@
-package com.example.mayur.xportal.settings
+package com.example.mayur.byteshare.settings
 
 import android.content.Context
 import android.graphics.Color
 import android.os.Bundle
-import android.support.v7.app.AlertDialog
-import android.support.v7.widget.CardView
+import androidx.appcompat.app.AlertDialog
+import androidx.cardview.widget.CardView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
 import android.widget.Toast
-import com.example.mayur.xportal.AppStyle
-import com.example.mayur.xportal.MainActivity
-import com.example.mayur.xportal.R
-import com.example.mayur.xportal.connection.logger.Logger
-import com.example.mayur.xportal.fragments.history.HistoryAdapterReceiver
-import com.example.mayur.xportal.fragments.history.HistoryAdapterSender
+import com.example.mayur.byteshare.AppStyle
+import com.example.mayur.byteshare.MainActivity
+import com.example.mayur.byteshare.R
+import com.example.mayur.byteshare.connection.logger.Logger
+import com.example.mayur.byteshare.fragments.history.HistoryAdapterReceiver
+import com.example.mayur.byteshare.fragments.history.HistoryAdapterSender
 import io.multimoon.colorful.CAppCompatActivity
 
 class SettingsActivity : CAppCompatActivity() {

@@ -4,9 +4,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".fragments.history.HistoryReceiveFragment">
+    tools:context="com.example.mayur.byteshare.fragments.history.HistoryReceiveFragment">
 
-    <android.support.v7.widget.RecyclerView
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/historyReceiveRecyclerView"
         tools:listitem="@layout/history_layout_item_history"
         android:layout_width="match_parent"

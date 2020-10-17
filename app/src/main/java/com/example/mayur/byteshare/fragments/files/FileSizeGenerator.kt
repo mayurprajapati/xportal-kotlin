@@ -1,4 +1,4 @@
-package com.example.mayur.xportal.fragments.files
+package com.example.mayur.byteshare.fragments.files
 
 import android.os.AsyncTask
 
@@ -35,10 +35,10 @@ class FileSizeGenerator(
         if (!isCancelled) {
             for (f in dir.listFiles()) {
                 if (!isCancelled) {
-                    if (!f.isDirectory) {
-                        len += f.length()
+                    len += if (!f.isDirectory) {
+                        f.length()
                     } else
-                        len += getFolderSize(f)
+                        getFolderSize(f)
                 }
             }
         }

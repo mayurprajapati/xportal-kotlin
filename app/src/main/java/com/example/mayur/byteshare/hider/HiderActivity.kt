@@ -1,17 +1,17 @@
-package com.example.mayur.xportal.hider
+package com.example.mayur.byteshare.hider
 
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.support.v4.app.FragmentTransaction
-import android.support.v7.widget.Toolbar
+import androidx.fragment.app.FragmentTransaction
+import androidx.appcompat.widget.Toolbar
 import android.view.View
 import android.view.WindowManager
-import com.example.mayur.xportal.R
+import com.example.mayur.byteshare.R
 import io.multimoon.colorful.CAppCompatActivity
 
 class HiderActivity : CAppCompatActivity(), SetupHiderFragment.OnSetupButtonClicked,
-    LoginFragment.LoginSuccessful {
+        LoginFragment.LoginSuccessful {
 
     private lateinit var sharedPreferences: SharedPreferences
 
@@ -41,7 +41,7 @@ class HiderActivity : CAppCompatActivity(), SetupHiderFragment.OnSetupButtonClic
                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                 .replace(
                     R.id.fragments_container_hider,
-                    LoginFragment.newInstance(password, question, answer),
+                        LoginFragment.newInstance(password, question, answer),
                     ""
                 )
                 .commitAllowingStateLoss()

@@ -1,24 +1,24 @@
-package com.example.mayur.xportal.fragments.files
+package com.example.mayur.byteshare.fragments.files
 
 
 import android.os.Bundle
 import android.os.Environment
-import android.support.design.widget.Snackbar
-import android.support.v4.app.Fragment
-import android.support.v4.widget.SwipeRefreshLayout
-import android.support.v7.widget.CardView
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
+import com.google.android.material.snackbar.Snackbar
+import androidx.fragment.app.Fragment
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import androidx.cardview.widget.CardView
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
-import com.example.mayur.xportal.MainActivity
-import com.example.mayur.xportal.R
-import com.example.mayur.xportal.connection.FileInfo
-import com.example.mayur.xportal.connection.hotspot.TransferHotspot
-import com.example.mayur.xportal.connection.wifi.TransferWifi
-import com.example.mayur.xportal.hider.Hider
+import com.example.mayur.byteshare.MainActivity
+import com.example.mayur.byteshare.R
+import com.example.mayur.byteshare.connection.FileInfo
+import com.example.mayur.byteshare.connection.hotspot.TransferHotspot
+import com.example.mayur.byteshare.connection.wifimanager.TransferWifi
+import com.example.mayur.byteshare.hider.Hider
 import java.io.File
 import java.util.*
 
