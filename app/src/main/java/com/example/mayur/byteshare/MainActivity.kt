@@ -25,6 +25,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.mayur.byteshare.connection.wifi.MyWifiManager
 import com.example.mayur.byteshare.connection.wifimanager.TransferWifi
 import com.example.mayur.byteshare.R
+import com.example.mayur.byteshare.bloc.apps.AppsBloc
 import com.example.mayur.byteshare.connection.connection.RootFragment
 import com.example.mayur.byteshare.connection.hotspot.HotspotManager
 import com.example.mayur.byteshare.connection.hotspot.TransferHotspot
@@ -41,7 +42,6 @@ import com.example.mayur.byteshare.settings.SettingsActivity
 import io.multimoon.colorful.CAppCompatActivity
 import io.multimoon.colorful.Colorful
 import io.multimoon.colorful.ThemeColor
-import kotlinx.android.synthetic.main.nav_layout_navigation_drawer.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 
@@ -73,20 +73,15 @@ class MainActivity : AppCompatActivity() {
     val permissionResultListeners = mutableMapOf<Int, (Boolean) -> Unit>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
-
-        Logger.log("onCreate started " + System.currentTimeMillis(), this)
         window.setFlags(
-            WindowManager.LayoutParams.FLAG_FULLSCREEN,
-            WindowManager.LayoutParams.FLAG_FULLSCREEN
+                WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN
         )
-
-//        appsFragment = AppsFragment()
-
-        changeTheme()
         super.onCreate(savedInstanceState)
         setContentView(R.layout.nav_layout_navigation_drawer)
-        val toolbar = findViewById<Toolbar>(R.id.toolbar)
 
+        changeTheme()
+        val toolbar = findViewById<Toolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)
         supportActionBar?.let {
             actionBar = supportActionBar as ActionBar
@@ -95,8 +90,6 @@ class MainActivity : AppCompatActivity() {
             it.setDisplayHomeAsUpEnabled(true)
             it.setHomeAsUpIndicator(R.drawable.ic_xportal)
         }
-        requestPermissions()
-        Logger.log("onCreate stopped " + System.currentTimeMillis(), this)
         initiate()
     }
 
@@ -133,7 +126,7 @@ class MainActivity : AppCompatActivity() {
         powerManager = applicationContext.getSystemService(Context.POWER_SERVICE) as PowerManager
         wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, packageName)
 
-        drawerLayout = drawer_layout
+        drawerLayout = findViewById(R.id.drawer_layout)
         mainPagerAdapter = MainPagerAdapter(supportFragmentManager)
 
         navigationView = findViewById(R.id.nav_view)
@@ -475,8 +468,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onDestroy() {
-        super.onDestroy()
         stopWakeLock()
+        super.onDestroy()
     }
 
     fun onButtonDownloadClick() {
@@ -500,7 +493,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    inner class MainPagerAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
+    inner class MainPagerAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm, FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
         override fun getItem(position: Int): Fragment {
             println("Request for position $position")
             when (position) {

@@ -28,15 +28,15 @@ class HiderActivity : CAppCompatActivity(), SetupHiderFragment.OnSetupButtonClic
         sharedPreferences = getSharedPreferences(PREFERENCE_NAME, Context.MODE_PRIVATE)
         val password = sharedPreferences.getString(KEY_HIDER_PASSWORD, "")
 
-        if (password != null && password == "") {
+        if (password == null || password == "") {
             //App started first time
             supportFragmentManager.beginTransaction()
                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                 .replace(R.id.fragments_container_hider, SetupHiderFragment(), "")
                 .commitAllowingStateLoss()
         } else {
-            val question = sharedPreferences.getString(KEY_HIDER_BACKUP_QUESTION, "")
-            val answer = sharedPreferences.getString(KEY_HIDER_BACKUP_QUESTION_ANSWER, "")
+            val question = sharedPreferences.getString(KEY_HIDER_BACKUP_QUESTION, "")!!
+            val answer = sharedPreferences.getString(KEY_HIDER_BACKUP_QUESTION_ANSWER, "")!!
             supportFragmentManager.beginTransaction()
                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                 .replace(
@@ -66,9 +66,9 @@ class HiderActivity : CAppCompatActivity(), SetupHiderFragment.OnSetupButtonClic
     }
 
     companion object {
-        val PREFERENCE_NAME = "hider"
-        val KEY_HIDER_PASSWORD = "key_hider_password"
-        val KEY_HIDER_BACKUP_QUESTION_ANSWER = "key_hider_backup_question_answer"
-        val KEY_HIDER_BACKUP_QUESTION = "key_hider_backup_question"
+        const val PREFERENCE_NAME = "hider"
+        const val KEY_HIDER_PASSWORD = "key_hider_password"
+        const val KEY_HIDER_BACKUP_QUESTION_ANSWER = "key_hider_backup_question_answer"
+        const val KEY_HIDER_BACKUP_QUESTION = "key_hider_backup_question"
     }
 }

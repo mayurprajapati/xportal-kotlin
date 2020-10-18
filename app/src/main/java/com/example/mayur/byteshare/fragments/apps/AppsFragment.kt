@@ -14,9 +14,12 @@ import android.view.ViewGroup
 import android.widget.*
 import com.example.mayur.byteshare.MainActivity
 import com.example.mayur.byteshare.R
+import com.example.mayur.byteshare.bloc.interfaces.selectedCount
 import com.example.mayur.byteshare.connection.FileInfo
 import com.example.mayur.byteshare.connection.hotspot.TransferHotspot
 import com.example.mayur.byteshare.connection.wifimanager.TransferWifi
+import com.example.mayur.byteshare.ioCoroutine
+import kotlinx.coroutines.launch
 import java.util.*
 
 
@@ -34,7 +37,6 @@ class AppsFragment : Fragment() {
     private lateinit var appsAdapter: AppsAdapter
     private lateinit var fileProperties: ImageButton
     private lateinit var swipeRefreshLayout: SwipeRefreshLayout
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -83,12 +85,12 @@ class AppsFragment : Fragment() {
         btnSend.setOnClickListener {
             if (MainActivity.isConnected) {
                 if (MainActivity.isSender) {
-                    Thread(Runnable {
+                    Thread {
                         val sender = TransferHotspot.getSender(mainActivity, false)
                         val s = appsAdapter.getAllSelectedApps()
                         if (sender != null) {
                             val fileInfos = ArrayList<FileInfo>()
-                            for (i in 0 until appsAdapter.selectedItemsCount) {
+                            for (i in 0 until appsAdapter.appsBloc.apps.selectedCount()) {
                                 fileInfos.add(FileInfo(s[i].f, s[i].appName, false))
                             }
                             sender.sendFiles(fileInfos)
@@ -97,12 +99,12 @@ class AppsFragment : Fragment() {
                                 cardViewCount.visibility = View.GONE
                             }
                         }
-                    }).start()
+                    }.start()
                 } else {
-                    Thread(Runnable {
+                    Thread {
                         val fileInfos = ArrayList<FileInfo>()
                         val s = appsAdapter.getAllSelectedApps()
-                        for (i in 0 until appsAdapter.selectedItemsCount) {
+                        for (i in 0 until appsAdapter.appsBloc.apps.selectedCount()) {
                             fileInfos.add(FileInfo(s[i].f, s[i].appName, false))
                         }
                         TransferWifi.getSender(mainActivity).sendFiles(fileInfos)
@@ -111,7 +113,7 @@ class AppsFragment : Fragment() {
                             appsAdapter.clearCount()
                             cardViewCount.visibility = View.GONE
                         }
-                    }).start()
+                    }.start()
                 }
 
             } else {
@@ -125,15 +127,16 @@ class AppsFragment : Fragment() {
             }
         }
 
-        uninstallPackage.setOnClickListener { appsAdapter.removeSelectedPackages() }
+        uninstallPackage.setOnClickListener { ioCoroutine.launch { appsAdapter.uninstallSelectedPackages() } }
         cancelSelection.setOnClickListener(appsAdapter.cancelSelectionOnClickListener)
         //        checkBoxSelectAll.setOnCheckedChangeListener(appsAdapter.selectAllOnCheckedChangeListener);
         checkBoxSelectAll.setOnClickListener(appsAdapter.selectAllOnClickListener)
-        checkBoxSelectAll.isChecked = appsAdapter.selectedItemsCount == appsAdapter.itemCount
 
-        if (appsAdapter.selectedItemsCount > 0) {
+        val selectedCount = appsAdapter.appsBloc.apps.selectedCount()
+        checkBoxSelectAll.isChecked = selectedCount == appsAdapter.itemCount
+        if (selectedCount > 0) {
             cardViewCount.visibility = View.VISIBLE
-            textViewCount.text = appsAdapter.selectedItemsCount.toString()
+            textViewCount.text = selectedCount.toString()
         } else {
             cardViewCount.visibility = View.GONE
         }

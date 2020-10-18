@@ -24,7 +24,6 @@ import java.util.Objects
  * A simple [Fragment] subclass.
  */
 class LoginFragment : Fragment() {
-
     private var PIN: String? = ""
     private var backupQuestion: String? = ""
     private var backupAnswer: String? = ""
@@ -53,14 +52,14 @@ class LoginFragment : Fragment() {
 
         val btnForgotPin = view.findViewById<Button>(R.id.btn_forgot_pin)
         val inputMethodManager =
-            activity!!.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
 
         val editTextPin = view.findViewById<TextInputEditText>(R.id.txt_pin)
         val layoutPin = view.findViewById<TextInputLayout>(R.id.pin_textinput)
         btnForgotPin.setOnClickListener {
             // Start PIN recovery
 
-            val alertDialog = AlertDialog.Builder(context!!).create()
+            val alertDialog = AlertDialog.Builder(requireContext()).create()
             if (alertDialog.window != null) {
                 alertDialog.window!!.setBackgroundDrawableResource(R.drawable.background_dialogbox)
                 val view1 = inflater.inflate(

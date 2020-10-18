@@ -12,6 +12,8 @@ import android.widget.Toast
 import java.io.File
 import java.text.DecimalFormat
 import java.util.ArrayList
+import kotlin.math.log10
+import kotlin.math.pow
 
 
 object FileUtils {
@@ -26,37 +28,6 @@ object FileUtils {
       }
     }
     file.delete()
-  }
-
-  fun getFiles(files: List<File>): List<File> {
-    val fileList = ArrayList<File>()
-    for (f in files) {
-      if (f.isDirectory) {
-        fileList.addAll(getFiles(f))
-      } else {
-        fileList.add(f)
-      }
-    }
-    return fileList
-  }
-
-  fun getFiles(folder: File): List<File> {
-    val files = ArrayList<File>()
-    if (folder.exists() && folder.isDirectory) {
-      val f = folder.listFiles()
-      for (i in f.indices) {
-        if (f[i].isDirectory)
-          files.addAll(getFiles(f[i]))
-        else {
-          files.add(f[i])
-          println(f[i].absolutePath)
-        }
-      }
-
-      println("\n\n\n\n\n\n")
-    }
-
-    return files
   }
 
   fun getExt(f: File): String {
@@ -77,8 +48,6 @@ object FileUtils {
   }
 
   fun getExt(f: String): String {
-
-
     return if (f.contains(".")) {
       try {
         f.substring(f.lastIndexOf(".") + 1, f.length)
@@ -93,12 +62,9 @@ object FileUtils {
   fun formatFileSize(size: Long): String {
     if (size <= 0) return "0 B"
     val units = arrayOf("B", "KB", "MB", "GB", "TB")
-    val digitGroups = (Math.log10(size.toDouble()) / Math.log10(1000.0)).toInt()
+    val digitGroups = (log10(size.toDouble()) / log10(1000.0)).toInt()
     return DecimalFormat("#,##0.##").format(
-      size / Math.pow(
-        1024.0,
-        digitGroups.toDouble()
-      )
+      size / 1024.0.pow(digitGroups.toDouble())
     ) + " " + units[digitGroups]
   }
 

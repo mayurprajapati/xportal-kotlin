@@ -37,13 +37,12 @@ class HistoryFragment : Fragment() {
         historyReceiveFragment = HistoryReceiveFragment()
         historySendFragment = HistorySendFragment()
         viewPager.adapter = object :
-            FragmentPagerAdapter(Objects.requireNonNull<FragmentActivity>(activity).supportFragmentManager) {
+            FragmentPagerAdapter(requireActivity().supportFragmentManager) {
             override fun getCount(): Int {
                 return 2
             }
 
-
-            override fun getItem(position: Int): Fragment? {
+            override fun getItem(position: Int): Fragment {
                 return when (position) {
                     0 -> historySendFragment
                     else -> historyReceiveFragment
